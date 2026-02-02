@@ -6,7 +6,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy Dependency File first
-COPY ../requirements.txt .
+COPY requirements.txt .
 
 # Install Python Dependencies
 RUN pip install --no-cache-dir -r requirements.txt
