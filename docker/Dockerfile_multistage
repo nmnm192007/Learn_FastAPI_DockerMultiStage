@@ -1,0 +1,44 @@
+
+# Stage 1 :: Build the Builder
+
+FROM python:3.11-slim AS builder
+
+# make the /build path
+WORKDIR /build
+
+# Copy the requirements.txt
+COPY requirements.txt .
+
+# Start the builder - python with dependencies ready
+RUN pip install \
+    --no-cache-dir \
+    --prefix=/install \
+    --r requirements.txt
+
+
+# Stage 2 :: Runtime - from the builder
+
+FROM python:3.11-slim
+
+# include new WORKDIR here /app
+WORKDIR /app
+
+# Copy the dependencies builder from above
+COPY --from=builder /install /usr/local
+
+# Copy the app to the app/ path
+COPY app/ app/
+
+#EXPOSE PORT 8000
+EXPOSE 8000
+
+#ENTRYPOINT for WHAT application
+ENTRYPOINT ["uvicorn"]
+
+#CMD for arguments - allows manual override when called with RUN
+
+CMD ["app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+
+
