@@ -1,0 +1,74 @@
+# =======================
+# Stage 1 :  Builder
+# =======================
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /build
+
+# Hardening Step 1
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONBUFFERED=1
+
+COPY requirements.txt .
+
+# Hardening Step 2
+
+RUN pip install \
+    --no-cache-dir \
+    --no-compile \
+    --prefix=/install \
+    --requirement requirements.txt
+
+
+# ====================== \
+# Stage 2 : Runtime
+# ======================
+
+FROM python:3.11-slim
+
+
+# Hardening Step 3
+# Runtime environment
+
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Hardening Step 4
+# Create non-root user
+
+RUN useradd \
+    --system \
+    --no-create-home \
+    --shell /usr/sbin/nologin \
+    appuser
+
+WORKDIR /app
+
+COPY --from=builder /install /usr/local
+
+COPY app/ app/
+
+# Hardening Step 4
+RUN chown -R appuser:appuser /app
+
+USER appuser
+
+EXPOSE 8000
+
+# Hardening Step 5
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD python -c "import socket; s=socket.socket(); \
+    s.connect(('127.0.0.1',8000))"
+
+
+ENTRYPOINT ["uvicorn"]
+
+CMD ["app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+
+
