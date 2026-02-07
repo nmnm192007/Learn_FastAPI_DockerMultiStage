@@ -1,0 +1,31 @@
+docker run -d \
+  --name fastapi-prod \
+  --user appuser \
+  --read-only \
+  --tmpfs /tmp \
+  --cap-drop=ALL \
+  --security-opt no-new-privileges:true \
+  --memory=512m \
+  --cpus=1.0 \
+  --pids-limit=100 \
+  -p 8000:8000 \
+  fastapi_hardened:latest
+
+
+
+docker images
+                                                                                                                                       i Info →   U  In Use
+IMAGE                              ID             DISK USAGE   CONTENT SIZE   EXTRA
+api_with_multistage:latest         49f30e7d6955        139MB             0B
+fastapi_hardened:latest            0cea5c6c5a4c        134MB             0B    U
+fastapi_singlestagedocker:latest   785139766fbb        233MB             0B    U
+
+
+
+@nmnm192007 ➜ /workspaces/Learn_FastAPI_DockerMultiStage (master) $ docker inspect fastapi-prod --format='{{.HostConfig.SecurityOpt}}'
+[no-new-privileges:true]
+@nmnm192007 ➜ /workspaces/Learn_FastAPI_DockerMultiStage (master) $
+Interview-Level Insight (This Is Gold)
+“Docker applies a default seccomp profile automatically. Explicitly specifying seccomp=default is not portable across Docker runtimes and can fail on some platforms like Docker Desktop or rootless mode. In production, we rely on the implicit default unless a custom profile is required.”
+
+That sentence alone separates real operators from tutorial-followers.

@@ -2,6 +2,8 @@
     main.py 
     This file is part of FastAPI.
 """
+import sys
+
 # Use the fastAPI framework
 from fastapi import FastAPI
 
@@ -10,7 +12,7 @@ import logging
 
 from app import health
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, force=True)
 
 # use async context manager for lifespan
 from contextlib import asynccontextmanager
@@ -34,7 +36,10 @@ async def lifespan(fastapi_app: FastAPI):
     yield
     health.is_ready = False
     logging.info("Application :: shutdown (lifespan) event")
+    sys.stdout.flush()
+    sys.stderr.flush()
 
+    
 
 # instantiate an object for FastAPI     -- deprecated old way
 # app = FastAPI()
