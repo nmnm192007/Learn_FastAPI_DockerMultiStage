@@ -66,3 +66,21 @@ def root():
     http://127.0.0.1:8000/health/readiness
 """
 app.include_router(health_router)
+
+
+
+# danger.py
+data = []
+
+@app.get("/eat-memory")
+def eat_memory():
+    """
+        demo func for eating memory TEST
+
+    """
+    while True:
+        data.append("X" * 10_000_000)  # ~10MB per iteration
+
+
+
+

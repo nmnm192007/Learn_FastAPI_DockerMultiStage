@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1af9187-85ae-4fd5-b5d4-e52194670e92" name="Changes" comment="FastAPI_Basics with multi stage Dockerfile _v3 hardening_1">
-      <change afterPath="$PROJECT_DIR$/docker/docker_run_notes.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="d1af9187-85ae-4fd5-b5d4-e52194670e92" name="Changes" comment="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/Dockerfile_hardened" beforeDir="false" afterPath="$PROJECT_DIR$/docker/Dockerfile_hardened" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,22 +30,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "state": "MERGED",
-      "author": "nmnm192007"
+      &quot;state&quot;: &quot;MERGED&quot;,
+      &quot;author&quot;: &quot;nmnm192007&quot;
     },
     {
-      "state": "OPEN",
-      "author": "nmnm192007"
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;author&quot;: &quot;nmnm192007&quot;
     }
   ],
-  "lastFilter": {
-    "state": "OPEN",
-    "author": "nmnm192007"
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;author&quot;: &quot;nmnm192007&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/nmnm192007/Learn_FastAPI_DockerMultiStage.git&quot;,
@@ -174,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770479574191</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check">
+      <option name="closed" value="true" />
+      <created>1770495193376</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1770495193376</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -194,6 +199,7 @@
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile" />
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v2" />
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v3 hardening_1" />
-    <option name="LAST_COMMIT_MESSAGE" value="FastAPI_Basics with multi stage Dockerfile _v3 hardening_1" />
+    <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check" />
+    <option name="LAST_COMMIT_MESSAGE" value="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check" />
   </component>
 </project>
