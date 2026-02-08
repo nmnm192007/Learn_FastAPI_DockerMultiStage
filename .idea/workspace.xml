@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1af9187-85ae-4fd5-b5d4-e52194670e92" name="Changes" comment="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check">
+    <list default="true" id="d1af9187-85ae-4fd5-b5d4-e52194670e92" name="Changes" comment="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check">
+      <change afterPath="$PROJECT_DIR$/app/memory_max_use.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
     </list>
@@ -179,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770495193376</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check">
+      <option name="closed" value="true" />
+      <created>1770574395226</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1770574395226</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,6 +209,7 @@
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v2" />
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v3 hardening_1" />
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check" />
-    <option name="LAST_COMMIT_MESSAGE" value="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check" />
+    <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check" />
+    <option name="LAST_COMMIT_MESSAGE" value="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check" />
   </component>
 </project>
