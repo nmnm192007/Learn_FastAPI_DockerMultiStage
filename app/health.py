@@ -11,7 +11,10 @@
 import asyncio
 
 # import APIrouter
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
+
+# implement memory management
+from memory_max_use import is_memory_safe
 
 # instantiate object for APIRouter
 router = APIRouter()
@@ -40,7 +43,12 @@ def health_readiness():
     """
     if not is_ready:
         return {"status":"not ready"}
-    return {"status":"ready"}
+
+    if not is_memory_safe():
+        return Response(status_code=503)
+    return {"status": "ready"}
+
+
 
 
 @router.post("/health/toggle")
