@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1af9187-85ae-4fd5-b5d4-e52194670e92" name="Changes" comment="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check">
-      <change afterPath="$PROJECT_DIR$/app/gunicorn.conf.py" afterDir="false" />
+    <list default="true" id="d1af9187-85ae-4fd5-b5d4-e52194670e92" name="Changes" comment="FastAPI_Basics with multi stage Dockerfile, DockerCompose, Gunicorn, memory management lib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/health.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/health.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/memory_max_use.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/memory_max_use.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/gunicorn.conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/gunicorn.conf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compose/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/Dockerfile_hardened" beforeDir="false" afterPath="$PROJECT_DIR$/docker/Dockerfile_hardened" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +196,23 @@
       <option name="project" value="LOCAL" />
       <updated>1770576577066</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="FastAPI_Basics with multi stage Dockerfile, DockerCompose, Gunicorn, memory management lib">
+      <option name="closed" value="true" />
+      <created>1770718224594</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1770718224594</updated>
+    </task>
+    <task id="LOCAL-00012" summary="FastAPI_Basics with multi stage Dockerfile, DockerCompose, Gunicorn, memory management lib">
+      <option name="closed" value="true" />
+      <created>1770718569862</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1770718569862</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,17 +234,7 @@
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v3 hardening_1" />
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _v4 _v5 hardening_with_lifespan_check" />
     <MESSAGE value="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check" />
-    <option name="LAST_COMMIT_MESSAGE" value="FastAPI_Basics with multi stage Dockerfile _runtime_dependencies_check" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/health.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="FastAPI_Basics with multi stage Dockerfile, DockerCompose, Gunicorn, memory management lib" />
+    <option name="LAST_COMMIT_MESSAGE" value="FastAPI_Basics with multi stage Dockerfile, DockerCompose, Gunicorn, memory management lib" />
   </component>
 </project>
