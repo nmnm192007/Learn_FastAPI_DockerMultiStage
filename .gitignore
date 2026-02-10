@@ -1,0 +1,17 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+
+# Docker / build artifacts
+*.tar
+*.zip
+*.log
+
+# Images / docs artifacts
+doc_img/*.tar
+
