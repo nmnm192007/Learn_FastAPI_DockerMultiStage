@@ -14,7 +14,7 @@ import asyncio
 from fastapi import APIRouter, Response
 
 # implement memory management
-from memory_max_use import is_memory_safe
+from .memory_max_use import is_memory_safe
 
 # instantiate object for APIRouter
 router = APIRouter()
