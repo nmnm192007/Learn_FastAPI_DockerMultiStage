@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-fastapi
+  template:
+    metadata:
+      labels:
+        app: ai-fastapi
+    spec:
+      terminationGracePeriodSeconds: 40
+      containers:
+      - name: fastapi-container
+        image: api_with_multistage:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "300m"
+            memory: "256Mi"

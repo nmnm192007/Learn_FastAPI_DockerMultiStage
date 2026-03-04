@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-app
+  template:
+    metadata:
+      labels:
+        app: ai-app
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: ai-container
+        image: busybox
+        command:
+          - sh
+          - -c
+          - |
+            echo "App Crashed"; exit 1
+            trap "echo SIGTERM received; sleep 20; echo Cleanup Done; exit 0" TERM;
+            while true; do
+              echo "Running...";
+              sleep 5;
+            done
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "echo ready"]
+          initialDelaySeconds: 5
+          periodSeconds: 5

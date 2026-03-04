@@ -28,25 +28,30 @@ is_ready = False
 def health_liveliness():
     """
         handles liveliness endpoint
+                  http://127.0.0.1:8000/health/liveliness
     :return:
     """
-    return {"status":"alive"}
+    # return {"status":"alive"}
+    if is_ready:
+         return Response(status_code=200)
+    else:
+        return Response(status_code=503)
 
 
 @router.get("/health/readiness")
 def health_readiness():
     """
           handles readiness endpoint     --
-          http://127.0.0.1:8000/health/liveliness
           http://127.0.0.1:8000/health/readiness
-    :return:  status -> dict
+    :return:  status
     """
     if not is_ready:
-        return {"status":"not ready"}
+        return Response(status_code=503)
 
     if not is_memory_safe():
         return Response(status_code=503)
-    return {"status": "ready"}
+    
+    return Response(status_code=200)
 
 
 
