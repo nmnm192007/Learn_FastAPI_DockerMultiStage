@@ -9,6 +9,7 @@
 
 # import asyncio for fluctuation simulations
 import asyncio
+import random
 
 # import APIrouter
 from fastapi import APIRouter, Response
@@ -32,7 +33,7 @@ def health_liveliness():
     :return:
     """
     # return {"status":"alive"}
-    if is_ready:
+    if random.randint(1,10) < 7:
          return Response(status_code=200)
     else:
         return Response(status_code=503)
