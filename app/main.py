@@ -5,7 +5,7 @@
 import asyncio
 import signal
 import sys
-import time
+import socket
 
 # Use the fastAPI framework
 from fastapi import FastAPI, Request, Response
@@ -14,6 +14,7 @@ from app import memory_max_use
 
 # incl logging func
 import logging
+
 logging.basicConfig(level=logging.INFO, force=True,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
                     )
@@ -26,6 +27,7 @@ from app.health import router as health_router
 
 # include dynamic memory check and related functions
 from app.memory_max_use import is_memory_safe
+
 
 # create lifespan object decorated with asynccontextmanager
 @asynccontextmanager
@@ -46,7 +48,6 @@ async def lifespan(fastapi_app: FastAPI):
     sys.stdout.flush()
     sys.stderr.flush()
 
-    
 
 # instantiate an object for FastAPI     -- deprecated old way
 # app = FastAPI()
@@ -57,6 +58,7 @@ app = FastAPI(lifespan=lifespan)
 # variable shutdown to initiate prestop hook
 shutdown = False
 
+
 # function handling SIGTERM
 def handle_sigterm(sig, frame):
     """
@@ -66,10 +68,14 @@ def handle_sigterm(sig, frame):
     :return:
     """
     global shutdown
-    logging.info("SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
+    print("Inside handle_sigterm()")
+    logging.info(
+        "SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
     shutdown = True
 
+
 signal.signal(signal.SIGTERM, handle_sigterm)
+
 
 # create a root endpoint ("/")
 
@@ -80,6 +86,7 @@ def root():
     :return:
     """
     return {"message":"FastAPI :: Hello World :: SERVICE Running "}
+
 
 # /work to simulate close down tasks like store to DB, write to file, flush,
 # etc.
@@ -92,9 +99,10 @@ async def do_work():
     :return:
     """
     print("Processing Request ... ")
+    logging.info("Work endpoint called")
     await asyncio.sleep(25)
-    return {"status": "Work Completed"}
-
+    hostname = socket.gethostname()
+    return {"status":"Work Completed", "pod":hostname}
 
 
 # Check memory management at this place
@@ -116,10 +124,10 @@ async def memory_guard_middleware(request: Request, call_next):
         #                                    "Memory Protection"}
         #                 )
 
-        return Response(status_code=503, content="Service Overloaded, Applied Memory Protection",
+        return Response(status_code=503,
+                        content="Service Overloaded, Applied Memory Protection",
                         )
     return await call_next(request)
-
 
 
 # register health_router with main app
