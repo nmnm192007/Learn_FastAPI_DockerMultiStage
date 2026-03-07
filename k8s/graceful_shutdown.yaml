@@ -21,7 +21,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["sh", "-c", "echo 'PreStop started, PreStop hook running"; sleep 5]
+                command: ["sh", "-c", "echo 'PreStop started, PreStop hook running'; sleep 5"]
 
           terminationGracePeriodSeconds: 30
       
