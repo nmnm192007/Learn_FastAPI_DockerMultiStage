@@ -92,7 +92,7 @@ async def do_work():
     :return:
     """
     print("Processing Request ... ")
-    await asyncio.sleep(10)
+    await asyncio.sleep(25)
     return {"status": "Work Completed"}
 
 
