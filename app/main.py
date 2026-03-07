@@ -2,7 +2,9 @@
     main.py 
     This file is part of FastAPI.
 """
+import signal
 import sys
+import time
 
 # Use the fastAPI framework
 from fastapi import FastAPI, Request, Response
@@ -51,6 +53,22 @@ async def lifespan(fastapi_app: FastAPI):
 # instantiate an object for FastAPI using lifespan object passed in as param
 app = FastAPI(lifespan=lifespan)
 
+# variable shutdown to initiate prestop hook
+shutdown = False
+
+# function handling SIGTERM
+def handle_sigterm(sig, frame):
+    """
+          function handling SIGTERM
+    :param sig:
+    :param frame:
+    :return:
+    """
+    global shutdown
+    print("SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
+    shutdown = True
+
+signal.signal(signal.SIGTERM, handle_sigterm)
 
 # create a root endpoint ("/")
 
@@ -60,7 +78,21 @@ def root():
     route /
     :return:
     """
-    return {"message":"FastAPI :: Hello World"}
+    return {"message":"FastAPI :: Hello World :: SERVICE Running "}
+
+# /work to simulate close down tasks like store to DB, write to file, flush,
+# etc.
+
+@app.get("/work")
+def do_work():
+    """
+      /work to simulate close down tasks like store to DB, write to file,
+      flush, etc.
+    :return:
+    """
+    print("Processing Request ... ")
+    time.sleep(10)
+    return {"status": "Work Completed"}
 
 
 
