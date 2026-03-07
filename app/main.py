@@ -2,6 +2,7 @@
     main.py 
     This file is part of FastAPI.
 """
+import asyncio
 import signal
 import sys
 import time
@@ -65,7 +66,7 @@ def handle_sigterm(sig, frame):
     :return:
     """
     global shutdown
-    print("SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
+    logging.info("SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
     shutdown = True
 
 signal.signal(signal.SIGTERM, handle_sigterm)
@@ -84,14 +85,14 @@ def root():
 # etc.
 
 @app.get("/work")
-def do_work():
+async def do_work():
     """
       /work to simulate close down tasks like store to DB, write to file,
       flush, etc.
     :return:
     """
     print("Processing Request ... ")
-    time.sleep(10)
+    await asyncio.sleep(10)
     return {"status": "Work Completed"}
 
 
