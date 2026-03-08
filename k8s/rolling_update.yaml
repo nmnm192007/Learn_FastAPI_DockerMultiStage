@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rolling-update
+spec:
+  replicas: 3
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+    selector:
+      matchLabels:
+        app: rolling-update
+
+    template:
+      metadata:
+        labels:
+          app: rolling-update
+
+      spec:
+        containers:
+          - name: rolling-update-cont
+            image: api-rolling-upd:v1
+            imagePullPolicy: IfNotPresent
+
+            ports:
+              - containerPort: 8000
+
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 8000
+              periodSeconds: 3
+            

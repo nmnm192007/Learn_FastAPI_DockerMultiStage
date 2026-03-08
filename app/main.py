@@ -59,6 +59,9 @@ app = FastAPI(lifespan=lifespan)
 shutdown = False
 
 
+
+hostname = socket.gethostname()
+
 # function handling SIGTERM
 def handle_sigterm(sig, frame):
     """
@@ -85,7 +88,8 @@ def root():
     route /
     :return:
     """
-    return {"message":"FastAPI :: Hello World :: SERVICE Running "}
+    return {"message":"FastAPI :: Hello World :: SERVICE Running ",
+            "version":"v1", "pod":hostname}
 
 
 # /work to simulate close down tasks like store to DB, write to file, flush,
@@ -101,8 +105,8 @@ async def do_work():
     print("Processing Request ... ")
     logging.info("Work endpoint called")
     await asyncio.sleep(25)
-    hostname = socket.gethostname()
-    return {"status":"Work Completed", "pod":hostname}
+
+    return {"status":"Work Completed", "version":"v1", "pod":hostname}
 
 
 # Check memory management at this place
