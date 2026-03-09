@@ -33,8 +33,8 @@ def health_liveliness():
     :return:
     """
     # return {"status":"alive"}
-    # if random.randint(1,10) < 7:
-    if is_ready:
+    if random.randint(1,10) < 7:
+    # if is_ready:
          return Response(status_code=200)
     else:
         return Response(status_code=503)
