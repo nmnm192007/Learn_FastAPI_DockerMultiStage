@@ -88,8 +88,10 @@ def root():
     route /
     :return:
     """
-    return {"message":"FastAPI :: Hello World :: SERVICE Running ",
-            "version":"v1", "pod":hostname}
+    # # return {"message":"FastAPI :: Hello World :: SERVICE Running ",
+    #         "version":"v1", "pod":hostname}
+    return {"message":"FastAPI :: Hello World :: SERVICE Running on V2 ",
+            "version":"v2", "container":hostname}
 
 
 # /work to simulate close down tasks like store to DB, write to file, flush,
