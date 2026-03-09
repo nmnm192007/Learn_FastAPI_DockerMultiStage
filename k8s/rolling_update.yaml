@@ -31,14 +31,14 @@ spec:
 
           livenessProbe:
             httpGet:
-              path: /wrong
+              path: /health/liveliness
               port: 8000
             initialDelaySeconds: 10
             periodSeconds: 5
 
           readinessProbe:
             httpGet:
-              path: /wrong
+              path: /health/readiness/wrong
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 5
