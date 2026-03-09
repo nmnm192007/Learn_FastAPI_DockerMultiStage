@@ -23,7 +23,8 @@ spec:
     spec:
       containers:
         - name: rolling-update-cont
-          image: api-rolling-upd:v3
+          image: api-rolling-upd:v1
+          command: ["sh","-c","exit 1"]
           imagePullPolicy: IfNotPresent
 
           ports:
