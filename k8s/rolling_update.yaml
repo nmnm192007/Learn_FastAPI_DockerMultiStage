@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: rolling-update-cont
-          image: api-rolling-upd:v2
+          image: api-rolling-upd:v3
           imagePullPolicy: IfNotPresent
 
           ports:
