@@ -6,6 +6,7 @@ import asyncio
 import signal
 import sys
 import socket
+import time
 
 # Use the fastAPI framework
 from fastapi import FastAPI, Request, Response
@@ -40,11 +41,15 @@ async def lifespan(fastapi_app: FastAPI):
     :param health.is_ready checked
     :yield
     """
+    start_time = time.time()
     logging.info("Application :: startup (lifespan) event")
     health.is_ready = True
     yield
+    logging.info("Application Startup Time:: %.2f seconds",
+                 time.time() - start_time)
     health.is_ready = False
     logging.info("Application :: shutdown (lifespan) event")
+
     sys.stdout.flush()
     sys.stderr.flush()
 
@@ -57,9 +62,6 @@ app = FastAPI(lifespan=lifespan)
 
 # variable shutdown to initiate prestop hook
 shutdown = False
-
-
-
 hostname = socket.gethostname()
 
 # function handling SIGTERM
@@ -75,8 +77,6 @@ def handle_sigterm(sig, frame):
     logging.info(
         "SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
     shutdown = True
-
-
 signal.signal(signal.SIGTERM, handle_sigterm)
 
 
@@ -88,10 +88,8 @@ def root():
     route /
     :return:
     """
-    # # return {"message":"FastAPI :: Hello World :: SERVICE Running ",
-    #         "version":"v1", "pod":hostname}
-    return {"message":"FastAPI :: Hello World :: SERVICE Running on V2 ",
-            "version":"v2", "container":hostname}
+    return {"message":"FastAPI :: Hello World :: SERVICE Running ",
+            "version":"v1", "pod":hostname}
 
 
 # /work to simulate close down tasks like store to DB, write to file, flush,
@@ -107,9 +105,7 @@ async def do_work():
     print("Processing Request ... ")
     logging.info("Work endpoint called")
     await asyncio.sleep(25)
-
     return {"status":"Work Completed", "version":"v1", "pod":hostname}
-
 
 # Check memory management at this place
 
@@ -122,14 +118,6 @@ async def memory_guard_middleware(request: Request, call_next):
     :return:
     """
     if not is_memory_safe():
-        # # from starlette import status
-        # # return Response(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-        #                 content={"message":
-        #                              "FastAPI :: Hello World  -- "
-        #                                    "Service Overloaded, Applied "
-        #                                    "Memory Protection"}
-        #                 )
-
         return Response(status_code=503,
                         content="Service Overloaded, Applied Memory Protection",
                         )

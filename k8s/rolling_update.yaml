@@ -43,5 +43,12 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
 
+          startupProbe:
+            httpGet:
+              path: /health/startup
+              port: 8000
+            failureThreshold: 30
+            periodSeconds: 5
+
 
             
