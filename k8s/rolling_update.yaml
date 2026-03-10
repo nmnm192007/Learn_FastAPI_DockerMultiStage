@@ -22,7 +22,7 @@ spec:
 
     spec:
       containers:
-        - name: rolling-update
+        - name: rolling-update-c
           image: api_startup:v2
           imagePullPolicy: IfNotPresent
 
