@@ -15,11 +15,10 @@ import random
 # import APIrouter
 from fastapi import APIRouter, Response
 
-# implement container name capture in status
-from .main import hostname
 
 # implement memory management
 from .memory_max_use import is_memory_safe
+from .sys_config_info import hostname, startup_complete
 
 # instantiate object for APIRouter
 router = APIRouter()
@@ -27,8 +26,6 @@ router = APIRouter()
 # check if health app is ready
 is_ready = False
 
-# check for startup_complete state
-startup_complete = False
 
 # handle endpoint liveliness
 @router.get("/health/liveliness")
@@ -97,9 +94,8 @@ async def startup():
     :return:  JSON  {status,version,pod}
     """
     if startup_complete:
-        return {"status":"Startup Completed", "version":"v1", "pod":hostname}
-    else:
-        return {"status":"Startup In Progress", "version":"v1",
-                "pod":hostname}
-
+        return {"status":"Startup Completed", "version":"v1", "pod":hostname,
+                "httpCode": "200"}
+    return {"status":"Startup In Progress", "version":"v1", "pod":hostname,
+            "httpCode":"503"}
 

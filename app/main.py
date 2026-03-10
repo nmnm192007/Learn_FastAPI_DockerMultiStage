@@ -5,16 +5,17 @@
 import asyncio
 import signal
 import sys
-import socket
 import time
 
 # Use the fastAPI framework
 from fastapi import FastAPI, Request, Response
-from app import health
+from app import health, sys_config_info
 from app import memory_max_use
 
 # incl logging func
 import logging
+
+from app.sys_config_info import hostname
 
 logging.basicConfig(level=logging.INFO, force=True,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -44,10 +45,14 @@ async def lifespan(fastapi_app: FastAPI):
     start_time = time.time()
     logging.info("Application :: startup (lifespan) event")
     health.is_ready = True
+    health.startup_complete= True
+
     yield
     logging.info("Application Startup Time:: %.2f seconds",
                  time.time() - start_time)
     health.is_ready = False
+    health.startup_complete = False
+    
     logging.info("Application :: shutdown (lifespan) event")
 
     sys.stdout.flush()
@@ -60,23 +65,19 @@ async def lifespan(fastapi_app: FastAPI):
 # instantiate an object for FastAPI using lifespan object passed in as param
 app = FastAPI(lifespan=lifespan)
 
-# variable shutdown to initiate prestop hook
-shutdown = False
-hostname = socket.gethostname()
 
 # function handling SIGTERM
-def handle_sigterm(sig, frame):
+def handle_sigterm(sig,frame):
     """
           function handling SIGTERM
     :param sig:
     :param frame:
     :return:
     """
-    global shutdown
     print("Inside handle_sigterm()")
     logging.info(
         "SIGTERM Received ::  Shutting down in Progress Gracefully ... ")
-    shutdown = True
+    sys_config_info.shutdown = True
 signal.signal(signal.SIGTERM, handle_sigterm)
 
 
