@@ -22,8 +22,8 @@ spec:
 
     spec:
       containers:
-        - name: rolling-update-cont
-          image: api-rolling-upd:v1
+        - name: rolling-update
+          image: api_startup:v2
           imagePullPolicy: IfNotPresent
 
           ports:
