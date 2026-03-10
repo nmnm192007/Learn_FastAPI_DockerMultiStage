@@ -10,21 +10,16 @@
 
 # import asyncio for fluctuation simulations
 import asyncio
-import random
 
 # import APIrouter
 from fastapi import APIRouter, Response
 
-
 # implement memory management
-from .memory_max_use import is_memory_safe
-from .sys_config_info import hostname, startup_complete
+import memory_max_use
+import sys_config_info
 
 # instantiate object for APIRouter
 router = APIRouter()
-
-# check if health app is ready
-is_ready = False
 
 
 # handle endpoint liveliness
@@ -36,9 +31,9 @@ def health_liveliness():
     :return:
     """
     # return {"status":"alive"}
-    if random.randint(1,10) < 7:
-    # if is_ready:
-         return Response(status_code=200)
+    # if random.randint(1,10) < 7:
+    if sys_config_info.is_ready:
+        return Response(status_code=200)
     else:
         return Response(status_code=503)
 
@@ -50,12 +45,12 @@ def health_readiness():
           http://127.0.0.1:8000/health/readiness
     :return:  status
     """
-    if not is_ready:
+    if not sys_config_info.is_ready:
         return Response(status_code=503)
 
-    if not is_memory_safe():
+    if not memory_max_use.is_memory_safe():
         return Response(status_code=503)
-    
+
     return Response(status_code=200)
 
 
@@ -65,9 +60,9 @@ def toggle_readiness():
         Temporary Function to check is_ready behaviour
     :return:
     """
-    global is_ready
-    is_ready = not is_ready
-    return {"is_ready":is_ready}
+    sys_config_info.is_ready = not sys_config_info.is_ready
+    tmp_str =  "is_ready:"+ str(sys_config_info.is_ready)
+    return Response(status_code=200, content=tmp_str)
 
 
 @router.get("/health/simulate_fluctuations")
@@ -76,14 +71,10 @@ async def simulate_fluctuations():
        simulate fluctuations endpoint
     :return:
     """
-    global is_ready
     await asyncio.sleep(2)
-    # if not is_ready:
-    #     is_ready = True
-    # else:
-    #     is_ready = False
-    is_ready = not is_ready
-    return {"is_ready":is_ready}
+    sys_config_info.is_ready = not sys_config_info.is_ready
+    tmp_str = "is_ready:" + str(sys_config_info.is_ready)
+    return Response(status_code=200, content=tmp_str)
 
 
 # /startup - the code supporting startup probe
@@ -91,11 +82,12 @@ async def simulate_fluctuations():
 async def startup():
     """
       /startup - the code supporting startup probe
-    :return:  JSON  {status,version,pod}
+    :return:  JSON  {status,version,pod,httpCode}
     """
-    if startup_complete:
-        return {"status":"Startup Completed", "version":"v1", "pod":hostname,
-                "httpCode": "200"}
-    return {"status":"Startup In Progress", "version":"v1", "pod":hostname,
-            "httpCode":"503"}
-
+    if sys_config_info.startup_complete:
+        tmp_str = ("Startup Completed"+ "v1" + sys_config_info.hostname +
+                   "httpCode:"+ "200")
+        return Response(status_code=200, content= tmp_str)
+    tmp_str = ("Startup In Progress" + "v1" + sys_config_info.hostname +
+               "httpCode:" + "503")
+    return Response(status_code=503, content= tmp_str)

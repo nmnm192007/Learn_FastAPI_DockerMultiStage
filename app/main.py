@@ -28,7 +28,7 @@ from contextlib import asynccontextmanager
 from app.health import router as health_router
 
 # include dynamic memory check and related functions
-from app.memory_max_use import is_memory_safe
+#from app.memory_max_use import is_memory_safe
 
 
 # create lifespan object decorated with asynccontextmanager
@@ -44,14 +44,18 @@ async def lifespan(fastapi_app: FastAPI):
     """
     start_time = time.time()
     logging.info("Application :: startup (lifespan) event")
-    health.is_ready = True
-    health.startup_complete= True
+    sys_config_info.is_ready = True
+    sys_config_info.startup_complete= True
+
+    for route in app.routes:
+        logging.info(f"Route Loaded: {route}")
 
     yield
+    
     logging.info("Application Startup Time:: %.2f seconds",
                  time.time() - start_time)
-    health.is_ready = False
-    health.startup_complete = False
+    sys_config_info.is_ready = False
+    sys_config_info.startup_complete = False
     
     logging.info("Application :: shutdown (lifespan) event")
 
@@ -118,9 +122,10 @@ async def memory_guard_middleware(request: Request, call_next):
     :param call_next:
     :return:
     """
-    if not is_memory_safe():
+    if not memory_max_use.is_memory_safe():
         return Response(status_code=503,
-                        content="Service Overloaded, Applied Memory Protection",
+                        content="Service Overloaded, "
+                                "Applied Memory Protection",
                         )
     return await call_next(request)
 
