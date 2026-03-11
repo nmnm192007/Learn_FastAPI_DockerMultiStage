@@ -44,18 +44,23 @@ async def lifespan(fastapi_app: FastAPI):
     """
     start_time = time.time()
     logging.info("Application :: startup (lifespan) event")
-    sys_config_info.is_ready = True
-    sys_config_info.startup_complete= True
 
-    for route in app.routes:
-        logging.info(f"Route Loaded: {route}")
+    sys_config_info.startup_complete= False
+    sys_config_info.is_ready = False
+
+    async def simulate_startup():
+        await asyncio.sleep(20)
+        sys_config_info.startup_complete = True
+        sys_config_info.is_ready = True
+
+        logging.info("Application Startup Time:: %.2f seconds",
+                     time.time() - start_time)
+
+        for route in app.routes:
+            logging.info(f"Route Loaded: {route}")
+    asyncio.create_task(simulate_startup())
 
     yield
-    
-    logging.info("Application Startup Time:: %.2f seconds",
-                 time.time() - start_time)
-    sys_config_info.is_ready = False
-    sys_config_info.startup_complete = False
     
     logging.info("Application :: shutdown (lifespan) event")
 
@@ -134,6 +139,7 @@ async def memory_guard_middleware(request: Request, call_next):
 """
     http://127.0.0.1:8000/health/liveliness
     http://127.0.0.1:8000/health/readiness
+    http://127.0.0.1:8000/health/startup
 """
 app.include_router(health_router)
 app.include_router(memory_max_use.router)
