@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  APP_MODE: "production"
+  APP_MODE: "staging"
   LOG_LEVEL: "debug"
 
 
