@@ -14,7 +14,7 @@ spec:
       spec:
         containers:
           - name: k8-pod-pv-pvc
-            image: mvpQ1:v1
+            image: mvpq1:v1
             ports:
               - containerPort: 8000
             volumeMounts:
