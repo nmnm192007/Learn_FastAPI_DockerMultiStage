@@ -5,7 +5,11 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: manual
   resources:
     requests:
       storage: 500Mi
+  selector:
+    matchLabels:
+      app: fastapi
 
