@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-mvp-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8-pod-pv-pvc
+    template:
+      metadata:
+        labels:
+          app: k8-pod-pv-pvc
+      spec:
+        containers:
+          - name: k8-pod-pv-pvc
+            image: mvpQ1:v1
+            ports:
+              - containerPort: 8000
+            volumeMounts:
+              - name: fastapi-mvp-vol
+                mountPath: /data
+        volumes:
+          -  name: fastapi-mvp-vol
+             persistentVolumeClaim:
+               claimName: k8-pvc
+               
