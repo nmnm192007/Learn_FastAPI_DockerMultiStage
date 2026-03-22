@@ -7,21 +7,21 @@ spec:
   selector:
     matchLabels:
       app: k8-pod-pv-pvc
-    template:
-      metadata:
-        labels:
-          app: k8-pod-pv-pvc
-      spec:
-        containers:
-          - name: k8-pod-pv-pvc
-            image: mvpq1:v1
-            ports:
-              - containerPort: 8000
-            volumeMounts:
-              - name: fastapi-mvp-vol
-                mountPath: /data
-        volumes:
-          -  name: fastapi-mvp-vol
-             persistentVolumeClaim:
-               claimName: k8-pvc
+  template:
+    metadata:
+      labels:
+        app: k8-pod-pv-pvc
+    spec:
+      containers:
+        - name: k8-pod-pv-pvc
+          image: mvpq1:v1
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: fastapi-mvp-vol
+              mountPath: /data
+      volumes:
+        -  name: fastapi-mvp-vol
+           persistentVolumeClaim:
+             claimName: k8-pvc
                
